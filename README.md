@@ -15,3 +15,9 @@ Every 60 seconds, the agent:
 3. **Decides** whether the yield differential justifies a cross-chain move (threshold: 0.5% APY spread)
 4. **Gets a live LI.FI quote** for the optimal bridge route
 5. **Executes** the bridge if profitable — fully autonomously
+
+### Example run
+
+```
+[SCAN]     Balances: HYPE: 0.4999 (~$15.10) | Base USDC: $0.00 | Arb USDC: $0.00 | Opt USDC: $0.00
+[SCAN]     Aave USDC APYs: Base: 2.44%, Arbitrum: 1.61%, Optimism: 1.64%
