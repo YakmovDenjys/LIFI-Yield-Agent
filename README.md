@@ -32,3 +32,9 @@ Every 60 seconds, the agent:
 - **HyperEVM → Optimism bridge**: [0x866bbc...](https://hyperevmscan.io/tx/0x866bbc9c1dadc14627e0542b3b52c061656f0fc76897cd24ecf5dad57540f9af)
 - **Destination tx (Optimism)**: [0x3f984a...](https://optimistic.etherscan.io/tx/0x3f984a4032a2de8005ac13434428cc0633fe4480d037652b1bb1fdd66e531335)
 
+---
+
+## Architecture
+
+```
+agent.ts          ← main decision loop (runs every 60s)
