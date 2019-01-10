@@ -38,3 +38,9 @@ Every 60 seconds, the agent:
 
 ```
 agent.ts          ← main decision loop (runs every 60s)
+yields.ts         ← Aave v3 APY reader (Base, Arbitrum, Optimism)
+lifi.ts           ← LI.FI API wrapper (quotes, status polling)
+execute.ts        ← on-chain execution (sign + send via ethers.js)
+wallet.ts         ← wallet management (mnemonic/key file)
+config.ts         ← chain addresses, thresholds, parameters
+logger.ts         ← structured event logging
