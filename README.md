@@ -44,3 +44,9 @@ execute.ts        ← on-chain execution (sign + send via ethers.js)
 wallet.ts         ← wallet management (mnemonic/key file)
 config.ts         ← chain addresses, thresholds, parameters
 logger.ts         ← structured event logging
+```
+
+## LI.FI Integration
+
+The agent uses the **LI.FI REST API** (`https://li.quest/v1`) for:
+
