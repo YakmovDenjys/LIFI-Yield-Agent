@@ -50,3 +50,9 @@ logger.ts         ← structured event logging
 
 The agent uses the **LI.FI REST API** (`https://li.quest/v1`) for:
 
+- `GET /quote` — finds the optimal bridge route + fee estimate across all LI.FI-supported bridges
+- `GET /status` — polls cross-chain completion after submission
+- Supports: Relay, Eco, CCTPv2, Mayan, Stargate, and 14+ other bridges
+
+No API key required for quotes. Execution is signed locally via ethers.js.
+
