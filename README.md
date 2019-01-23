@@ -56,3 +56,8 @@ The agent uses the **LI.FI REST API** (`https://li.quest/v1`) for:
 
 No API key required for quotes. Execution is signed locally via ethers.js.
 
+## Decision logic
+
+```typescript
+// Only bridge if APY differential exceeds threshold
+if (apyDiff >= MIN_APY_DIFF_PCT) {
