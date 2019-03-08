@@ -61,3 +61,9 @@ No API key required for quotes. Execution is signed locally via ethers.js.
 ```typescript
 // Only bridge if APY differential exceeds threshold
 if (apyDiff >= MIN_APY_DIFF_PCT) {
+  const quote = await getQuote(fromChain, toChain, fromToken, toToken, amount);
+  await executeQuote(quote);        // sign + submit via ethers
+  await waitForCompletion(txHash);  // poll LI.FI status API
+}
+```
+
