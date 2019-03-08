@@ -67,3 +67,9 @@ if (apyDiff >= MIN_APY_DIFF_PCT) {
 }
 ```
 
+## Setup
+
+```bash
+# 1. Clone and install
+bun install
+
