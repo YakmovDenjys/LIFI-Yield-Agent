@@ -79,3 +79,9 @@ bun install
 # 3. Dry run (no execution)
 bun run agent.ts --once --dry-run
 
+# 4. Single cycle (live)
+bun run agent.ts --once
+
+# 5. Continuous loop
+bun run agent.ts
+```
