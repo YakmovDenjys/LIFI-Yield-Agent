@@ -73,3 +73,9 @@ if (apyDiff >= MIN_APY_DIFF_PCT) {
 # 1. Clone and install
 bun install
 
+# 2. Add wallet key file at /workspace/projects/x402-agent/.wallet-key.json
+# Format: { "address": "0x...", "mnemonic": "word1 word2 ..." }
+
+# 3. Dry run (no execution)
+bun run agent.ts --once --dry-run
+
