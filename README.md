@@ -91,3 +91,9 @@ bun run agent.ts
 | Parameter | Default | Description |
 |-----------|---------|-------------|
 | `MIN_BRIDGE_AMOUNT_USD` | $3 | Don't bridge less than this |
+| `MIN_APY_DIFF_PCT` | 0.5% | Min APY spread to trigger rebalance |
+| `MAX_MOVE_USDC` | $20 | Max per-operation cap |
+| `LOOP_INTERVAL_MS` | 60,000ms | Check frequency |
+| `MAX_SLIPPAGE` | 0.5% | LI.FI quote slippage tolerance |
+
+## Chains supported
