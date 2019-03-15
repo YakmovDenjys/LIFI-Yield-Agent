@@ -85,3 +85,9 @@ bun run agent.ts --once
 # 5. Continuous loop
 bun run agent.ts
 ```
+
+## Parameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `MIN_BRIDGE_AMOUNT_USD` | $3 | Don't bridge less than this |
