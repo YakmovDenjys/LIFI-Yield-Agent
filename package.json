@@ -7,3 +7,4 @@
     "once": "bun run agent.ts --once",
     "typecheck": "tsc --noEmit"
   },
+  "engines": {
