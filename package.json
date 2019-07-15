@@ -5,3 +5,5 @@
   "scripts": {
     "start": "bun run agent.ts",
     "once": "bun run agent.ts --once",
+    "typecheck": "tsc --noEmit"
+  },
