@@ -4,3 +4,4 @@
   "description": "Autonomous cross-chain yield optimizer powered by LI.FI",
   "scripts": {
     "start": "bun run agent.ts",
+    "once": "bun run agent.ts --once",
