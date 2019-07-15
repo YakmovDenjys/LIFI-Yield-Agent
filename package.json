@@ -2,3 +2,4 @@
   "name": "lifi-yield-agent",
   "version": "1.0.0",
   "description": "Autonomous cross-chain yield optimizer powered by LI.FI",
+  "scripts": {
