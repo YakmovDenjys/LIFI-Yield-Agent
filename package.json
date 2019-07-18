@@ -8,3 +8,4 @@
     "typecheck": "tsc --noEmit"
   },
   "engines": {
+    "node": ">=18"
