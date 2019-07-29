@@ -10,3 +10,4 @@
   "engines": {
     "node": ">=18"
   },
+  "dependencies": {
