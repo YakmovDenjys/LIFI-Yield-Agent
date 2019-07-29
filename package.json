@@ -11,3 +11,5 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@types/node": "^26.5.0",
+    "ethers": "^6.17.0",
