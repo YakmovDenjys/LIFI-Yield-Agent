@@ -13,3 +13,4 @@
   "dependencies": {
     "@types/node": "^26.5.0",
     "ethers": "^6.17.0",
+    "typescript": "^7.0.2"
