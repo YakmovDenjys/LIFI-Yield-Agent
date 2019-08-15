@@ -8,3 +8,4 @@
     "strict": true,
     "noUncheckedIndexedAccess": false,
     "noEmit": true,
+    "esModuleInterop": true,
