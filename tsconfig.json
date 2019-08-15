@@ -5,3 +5,4 @@
     "moduleResolution": "bundler",
     "lib": ["ES2022"],
     "types": ["node"],
+    "strict": true,
