@@ -7,3 +7,4 @@
     "types": ["node"],
     "strict": true,
     "noUncheckedIndexedAccess": false,
+    "noEmit": true,
