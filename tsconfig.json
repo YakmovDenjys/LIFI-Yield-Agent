@@ -9,3 +9,4 @@
     "noUncheckedIndexedAccess": false,
     "noEmit": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
