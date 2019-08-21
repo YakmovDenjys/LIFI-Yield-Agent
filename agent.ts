@@ -24,3 +24,13 @@ if (!process.argv.includes("--once")) {
   }
   writeFileSync(PID_FILE, String(process.pid));
   process.on("exit", () => { try { unlinkSync(PID_FILE); } catch {} });
+}
+import { getAllYields, getNativeBalance, getUSDCBalance, YieldInfo } from "./yields";
+import { getQuote, quoteSummary, LifiQuote } from "./lifi";
+import { executeQuote, waitForCompletion } from "./execute";
+import { log, getRecentEvents } from "./logger";
+
+const ONCE = process.argv.includes("--once");
+const DRY_RUN = process.argv.includes("--dry-run");
+
+// ─── State ──────────────────────────────────────────────────────────────────
