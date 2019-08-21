@@ -34,3 +34,13 @@ const ONCE = process.argv.includes("--once");
 const DRY_RUN = process.argv.includes("--dry-run");
 
 // ─── State ──────────────────────────────────────────────────────────────────
+let cycleCount = 0;
+let totalBridges = 0;
+let totalValueMoved = 0;
+let lastAction: string = "Starting up...";
+
+// ─── Main Loop ───────────────────────────────────────────────────────────────
+async function runCycle() {
+  cycleCount++;
+  const address = getAddress();
+  log("scan", `=== Cycle ${cycleCount} | Wallet: ${address} ===`);
