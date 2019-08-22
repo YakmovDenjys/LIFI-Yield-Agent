@@ -54,3 +54,13 @@ async function runCycle() {
   ]);
 
   const hypeUsd = Number(hypeBalance) / 1e18 * 30.2; // approx HYPE price
+
+  log("scan", "Balances", {
+    HYPE: `${(Number(hypeBalance) / 1e18).toFixed(4)} (~$${hypeUsd.toFixed(2)})`,
+    "Base USDC": `$${(Number(baseUsdc) / 1e6).toFixed(2)}`,
+    "Arb USDC":  `$${(Number(arbUsdc) / 1e6).toFixed(2)}`,
+    "Opt USDC":  `$${(Number(optUsdc) / 1e6).toFixed(2)}`,
+  });
+
+  // 2. Get Aave yields
+  let yields: YieldInfo[] = [];
