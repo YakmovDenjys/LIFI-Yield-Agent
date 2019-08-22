@@ -44,3 +44,13 @@ async function runCycle() {
   cycleCount++;
   const address = getAddress();
   log("scan", `=== Cycle ${cycleCount} | Wallet: ${address} ===`);
+
+  // 1. Read all balances
+  const [hypeBalance, baseUsdc, arbUsdc, optUsdc] = await Promise.all([
+    getNativeBalance(999, address),
+    getUSDCBalance(8453, address),
+    getUSDCBalance(42161, address),
+    getUSDCBalance(10, address),
+  ]);
+
+  const hypeUsd = Number(hypeBalance) / 1e18 * 30.2; // approx HYPE price
