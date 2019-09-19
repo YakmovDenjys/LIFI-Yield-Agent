@@ -84,3 +84,13 @@ async function runCycle() {
   }
 
   log("decision", `Best yield: ${best.chainName} @ ${best.supplyApyPct.toFixed(3)}%`, {
+    spread: `${(best.supplyApyPct - worst.supplyApyPct).toFixed(3)}% vs worst (${worst.chainName})`,
+  });
+
+  // ── Phase 1: If we have HYPE and no USDC anywhere, bridge HYPE → USDC on best chain ──
+  const totalUsdcUsd = Number(baseUsdc + arbUsdc + optUsdc) / 1e6;
+  const hypeAvailable = Number(hypeBalance) / 1e18;
+
+  if (totalUsdcUsd < CONFIG.MIN_BRIDGE_AMOUNT_USD && hypeAvailable > 0.1) {
+    // Bridge HYPE → USDC on the best yield chain
+    const bridgeAmount = hypeBalance - BigInt(Math.floor(0.05 * 1e18)); // keep 0.05 HYPE for gas
