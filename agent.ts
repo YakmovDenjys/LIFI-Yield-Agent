@@ -104,3 +104,13 @@ async function runCycle() {
       amount: `${(Number(bridgeAmount) / 1e18).toFixed(4)} HYPE`,
       destination: best.chainName,
       reason: `No USDC on any chain; best yield = ${best.chainName} @ ${best.supplyApyPct.toFixed(3)}%`,
+    });
+
+    const toToken = CONFIG.USDC[best.chainId as keyof typeof CONFIG.USDC];
+    if (!toToken) {
+      log("error", `No USDC address configured for chain ${best.chainId}`);
+      return;
+    }
+
+    const quote = await getQuote(999, best.chainId, CONFIG.NATIVE, toToken, bridgeAmount.toString(), address);
+    if (!quote) {
