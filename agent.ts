@@ -64,3 +64,13 @@ async function runCycle() {
 
   // 2. Get Aave yields
   let yields: YieldInfo[] = [];
+  try {
+    yields = await getAllYields(address);
+    const yieldStr = yields.map(y => `${y.chainName}: ${y.supplyApyPct.toFixed(3)}%`).join(", ");
+    log("scan", `Aave USDC supply APYs: ${yieldStr}`);
+  } catch (e: any) {
+    log("error", `Failed to fetch yields: ${e.message}`);
+  }
+
+  // 3. Find best yield chain
+  const sortedYields = [...yields].sort((a, b) => b.supplyApyPct - a.supplyApyPct);
