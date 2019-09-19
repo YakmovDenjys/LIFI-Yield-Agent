@@ -94,3 +94,13 @@ async function runCycle() {
   if (totalUsdcUsd < CONFIG.MIN_BRIDGE_AMOUNT_USD && hypeAvailable > 0.1) {
     // Bridge HYPE → USDC on the best yield chain
     const bridgeAmount = hypeBalance - BigInt(Math.floor(0.05 * 1e18)); // keep 0.05 HYPE for gas
+    if (bridgeAmount <= 0n) {
+      log("info", "Not enough HYPE to bridge (need >0.05 for gas reserve)");
+      lastAction = "Waiting for funds";
+      return;
+    }
+
+    log("decision", `Phase 1: Bridging HYPE → USDC on ${best.chainName}`, {
+      amount: `${(Number(bridgeAmount) / 1e18).toFixed(4)} HYPE`,
+      destination: best.chainName,
+      reason: `No USDC on any chain; best yield = ${best.chainName} @ ${best.supplyApyPct.toFixed(3)}%`,
