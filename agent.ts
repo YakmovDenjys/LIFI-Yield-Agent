@@ -74,3 +74,13 @@ async function runCycle() {
 
   // 3. Find best yield chain
   const sortedYields = [...yields].sort((a, b) => b.supplyApyPct - a.supplyApyPct);
+  const best = sortedYields[0];
+  const worst = sortedYields[sortedYields.length - 1];
+
+  if (!best || !worst) {
+    log("info", "No yield data available, skipping decision");
+    lastAction = "No yield data";
+    return;
+  }
+
+  log("decision", `Best yield: ${best.chainName} @ ${best.supplyApyPct.toFixed(3)}%`, {
