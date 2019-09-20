@@ -114,3 +114,13 @@ async function runCycle() {
 
     const quote = await getQuote(999, best.chainId, CONFIG.NATIVE, toToken, bridgeAmount.toString(), address);
     if (!quote) {
+      log("error", "Could not get LI.FI quote for HYPE bridge");
+      lastAction = "Quote failed";
+      return;
+    }
+
+    log("decision", `LI.FI Quote: ${quoteSummary(quote)}`);
+    lastAction = `Bridging ${(Number(bridgeAmount) / 1e18).toFixed(3)} HYPE → ${best.chainName} USDC`;
+
+    if (DRY_RUN) {
+      log("info", "[DRY RUN] Would execute bridge. Skipping.");
