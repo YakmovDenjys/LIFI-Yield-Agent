@@ -134,3 +134,13 @@ async function runCycle() {
         to: best.chainName,
         tool: quote.toolDetails.name,
       });
+
+      log("info", "Waiting for cross-chain completion...");
+      const destTxHash = await waitForCompletion(txHash, 999, best.chainId);
+      log("complete", `Bridge complete! Destination tx: ${destTxHash}`);
+
+      totalBridges++;
+      totalValueMoved += Number(bridgeAmount) / 1e18 * 30.2;
+      lastAction = `Bridged to ${best.chainName} ✓ tx:${txHash.slice(0, 10)}...`;
+    } catch (e: any) {
+      log("error", `Bridge failed: ${e.message}`);
