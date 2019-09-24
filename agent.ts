@@ -124,3 +124,13 @@ async function runCycle() {
 
     if (DRY_RUN) {
       log("info", "[DRY RUN] Would execute bridge. Skipping.");
+      return;
+    }
+
+    try {
+      const txHash = await executeQuote(quote);
+      log("bridge", `Bridge tx sent: ${txHash}`, {
+        from: "HyperEVM",
+        to: best.chainName,
+        tool: quote.toolDetails.name,
+      });
