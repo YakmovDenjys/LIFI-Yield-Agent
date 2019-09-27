@@ -154,3 +154,13 @@ async function runCycle() {
     log("info", `Total USDC $${totalUsdcUsd.toFixed(2)} below min $${CONFIG.MIN_BRIDGE_AMOUNT_USD} — waiting`);
     lastAction = `Waiting for funds ($${totalUsdcUsd.toFixed(2)} available)`;
     return;
+  }
+
+  // Find chain with most USDC that is NOT the best yield chain
+  const usdcPerChain = [
+    { chainId: 8453, chainName: "Base", balance: baseUsdc },
+    { chainId: 42161, chainName: "Arbitrum", balance: arbUsdc },
+    { chainId: 10, chainName: "Optimism", balance: optUsdc },
+  ].filter(c => c.chainId !== best.chainId && c.balance > 0n)
+   .sort((a, b) => Number(b.balance - a.balance));
+
