@@ -144,3 +144,13 @@ async function runCycle() {
       lastAction = `Bridged to ${best.chainName} ✓ tx:${txHash.slice(0, 10)}...`;
     } catch (e: any) {
       log("error", `Bridge failed: ${e.message}`);
+      lastAction = `Bridge error: ${e.message.slice(0, 60)}`;
+    }
+    return;
+  }
+
+  // ── Phase 2: Rebalance USDC between chains if yield differential is worth it ──
+  if (totalUsdcUsd < CONFIG.MIN_BRIDGE_AMOUNT_USD) {
+    log("info", `Total USDC $${totalUsdcUsd.toFixed(2)} below min $${CONFIG.MIN_BRIDGE_AMOUNT_USD} — waiting`);
+    lastAction = `Waiting for funds ($${totalUsdcUsd.toFixed(2)} available)`;
+    return;
