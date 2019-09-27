@@ -164,3 +164,13 @@ async function runCycle() {
   ].filter(c => c.chainId !== best.chainId && c.balance > 0n)
    .sort((a, b) => Number(b.balance - a.balance));
 
+  const source = usdcPerChain[0];
+  if (!source) {
+    log("info", `All USDC already on best chain (${best.chainName})`);
+    lastAction = `Optimal: all USDC on ${best.chainName} @ ${best.supplyApyPct.toFixed(3)}% APY`;
+    return;
+  }
+
+  // Find yield of source chain
+  const sourceYield = yields.find(y => y.chainId === source.chainId);
+  const apyDiff = best.supplyApyPct - (sourceYield?.supplyApyPct ?? 0);
