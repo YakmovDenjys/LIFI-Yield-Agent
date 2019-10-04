@@ -184,3 +184,13 @@ async function runCycle() {
     threshold: `${CONFIG.MIN_APY_DIFF_PCT}%`,
   });
 
+  if (apyDiff < CONFIG.MIN_APY_DIFF_PCT) {
+    log("info", `APY diff ${apyDiff.toFixed(3)}% < threshold ${CONFIG.MIN_APY_DIFF_PCT}% — holding`);
+    lastAction = `Holding: ${apyDiff.toFixed(3)}% spread insufficient (need ${CONFIG.MIN_APY_DIFF_PCT}%)`;
+    return;
+  }
+
+  // Cap move amount for safety
+  const moveAmount = source.balance > BigInt(CONFIG.MAX_MOVE_USDC)
+    ? BigInt(CONFIG.MAX_MOVE_USDC)
+    : source.balance;
