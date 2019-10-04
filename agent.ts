@@ -174,3 +174,13 @@ async function runCycle() {
   // Find yield of source chain
   const sourceYield = yields.find(y => y.chainId === source.chainId);
   const apyDiff = best.supplyApyPct - (sourceYield?.supplyApyPct ?? 0);
+
+  log("decision", `Rebalance opportunity: ${source.chainName} → ${best.chainName}`, {
+    sourceName: source.chainName,
+    sourceApy: `${(sourceYield?.supplyApyPct ?? 0).toFixed(3)}%`,
+    bestApy: `${best.supplyApyPct.toFixed(3)}%`,
+    apyDiff: `${apyDiff.toFixed(3)}%`,
+    usdcAvailable: `$${(Number(source.balance) / 1e6).toFixed(2)}`,
+    threshold: `${CONFIG.MIN_APY_DIFF_PCT}%`,
+  });
+
