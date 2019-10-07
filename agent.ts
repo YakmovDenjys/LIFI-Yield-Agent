@@ -204,3 +204,13 @@ async function runCycle() {
     lastAction = "Quote failed";
     return;
   }
+
+  log("decision", `LI.FI Quote: ${quoteSummary(quote)}`);
+  lastAction = `Rebalancing $${(Number(moveAmount) / 1e6).toFixed(2)} USDC: ${source.chainName} → ${best.chainName}`;
+
+  if (DRY_RUN) {
+    log("info", "[DRY RUN] Would execute bridge. Skipping.");
+    return;
+  }
+
+  try {
