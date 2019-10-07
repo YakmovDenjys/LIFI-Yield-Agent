@@ -224,3 +224,13 @@ async function runCycle() {
 
     const destTxHash = await waitForCompletion(txHash, source.chainId, best.chainId);
     log("complete", `Rebalance complete! ${destTxHash}`);
+    totalBridges++;
+    totalValueMoved += Number(moveAmount) / 1e6;
+    lastAction = `Rebalanced to ${best.chainName} ✓ +${apyDiff.toFixed(3)}% APY`;
+  } catch (e: any) {
+    log("error", `Rebalance failed: ${e.message}`);
+    lastAction = `Rebalance error: ${e.message.slice(0, 60)}`;
+  }
+}
+
+// ─── Entry Point ─────────────────────────────────────────────────────────────
