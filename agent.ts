@@ -214,3 +214,13 @@ async function runCycle() {
   }
 
   try {
+    const txHash = await executeQuote(quote);
+    log("bridge", `Rebalance tx sent: ${txHash}`, {
+      from: source.chainName,
+      to: best.chainName,
+      amount: `$${(Number(moveAmount) / 1e6).toFixed(2)}`,
+      expectedExtraApy: `+${apyDiff.toFixed(3)}%`,
+    });
+
+    const destTxHash = await waitForCompletion(txHash, source.chainId, best.chainId);
+    log("complete", `Rebalance complete! ${destTxHash}`);
