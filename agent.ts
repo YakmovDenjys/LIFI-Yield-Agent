@@ -194,3 +194,13 @@ async function runCycle() {
   const moveAmount = source.balance > BigInt(CONFIG.MAX_MOVE_USDC)
     ? BigInt(CONFIG.MAX_MOVE_USDC)
     : source.balance;
+
+  const fromToken = CONFIG.USDC[source.chainId as keyof typeof CONFIG.USDC];
+  const toToken = CONFIG.USDC[best.chainId as keyof typeof CONFIG.USDC];
+
+  const quote = await getQuote(source.chainId, best.chainId, fromToken, toToken, moveAmount.toString(), address);
+  if (!quote) {
+    log("error", "Could not get LI.FI quote for USDC rebalance");
+    lastAction = "Quote failed";
+    return;
+  }
