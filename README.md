@@ -97,3 +97,20 @@ bun run agent.ts
 | `MAX_SLIPPAGE` | 0.5% | LI.FI quote slippage tolerance |
 
 ## Chains supported
+
+| Chain | USDC | Aave v3 | LI.FI bridge |
+|-------|------|---------|--------------|
+| HyperEVM (999) | Native HYPE | — | ✓ source |
+| Base (8453) | ✓ | ✓ 2.44% | ✓ |
+| Arbitrum (42161) | ✓ | ✓ 1.61% | ✓ |
+| Optimism (10) | ✓ | ✓ 1.64% | ✓ |
+
+---
+
+Built with ❤️ using [LI.FI API](https://docs.li.fi), [ethers.js](https://ethers.org), and [Bun](https://bun.sh).
+
+## Notes
+
+Use `bun run once` for a single sweep; the default run loops on its own schedule.
+
+<!-- draft note 101 -->
