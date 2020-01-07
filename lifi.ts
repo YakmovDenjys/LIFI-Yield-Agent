@@ -12,3 +12,9 @@ export interface LifiQuote {
     toToken: { symbol: string; address: string; priceUSD: string; decimals: number };
     fromAmount: string;
     fromChainId: number;
+    toChainId: number;
+    fromAddress: string;
+    toAddress: string;
+  };
+  estimate: {
+    toAmountMin: string;
