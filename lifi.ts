@@ -18,3 +18,10 @@ export interface LifiQuote {
   };
   estimate: {
     toAmountMin: string;
+    toAmount: string;
+    fromAmount: string;
+    feeCosts: Array<{ name: string; amount: string; token: { symbol: string; decimals: number } }>;
+    gasCosts: Array<{ amount: string; token: { symbol: string; decimals: number }; estimate: string }>;
+    executionDuration: number;
+  };
+  transactionRequest?: {
