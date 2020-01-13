@@ -25,3 +25,9 @@ export interface LifiQuote {
     executionDuration: number;
   };
   transactionRequest?: {
+    to: string;
+    data: string;
+    value: string;
+    gasLimit: string;
+    gasPrice?: string;
+    chainId: number;
