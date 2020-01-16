@@ -37,3 +37,9 @@ export interface LifiQuote {
 export async function getQuote(
   fromChainId: number,
   toChainId: number,
+  fromToken: string,
+  toToken: string,
+  fromAmount: string,
+  fromAddress: string
+): Promise<LifiQuote | null> {
+  const url = new URL(`${CONFIG.LIFI_API}/quote`);
