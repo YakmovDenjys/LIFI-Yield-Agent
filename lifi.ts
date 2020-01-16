@@ -31,3 +31,9 @@ export interface LifiQuote {
     gasLimit: string;
     gasPrice?: string;
     chainId: number;
+  };
+}
+
+export async function getQuote(
+  fromChainId: number,
+  toChainId: number,
