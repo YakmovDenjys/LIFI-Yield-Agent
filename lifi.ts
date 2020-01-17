@@ -43,3 +43,10 @@ export async function getQuote(
   fromAddress: string
 ): Promise<LifiQuote | null> {
   const url = new URL(`${CONFIG.LIFI_API}/quote`);
+  url.searchParams.set("fromChain", String(fromChainId));
+  url.searchParams.set("toChain", String(toChainId));
+  url.searchParams.set("fromToken", fromToken);
+  url.searchParams.set("toToken", toToken);
+  url.searchParams.set("fromAmount", fromAmount);
+  url.searchParams.set("fromAddress", fromAddress);
+  url.searchParams.set("slippage", String(CONFIG.MAX_SLIPPAGE));
