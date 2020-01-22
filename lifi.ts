@@ -56,3 +56,9 @@ export async function getQuote(
     const body = await res.text();
     console.warn(`[lifi] Quote failed ${res.status}: ${body.slice(0, 200)}`);
     return null;
+  }
+  return (await res.json()) as LifiQuote;
+}
+
+export async function getStatus(txHash: string, fromChainId: number, toChainId: number): Promise<any> {
+  const url = new URL(`${CONFIG.LIFI_API}/status`);
