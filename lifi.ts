@@ -50,3 +50,9 @@ export async function getQuote(
   url.searchParams.set("fromAmount", fromAmount);
   url.searchParams.set("fromAddress", fromAddress);
   url.searchParams.set("slippage", String(CONFIG.MAX_SLIPPAGE));
+
+  const res = await fetch(url.toString());
+  if (!res.ok) {
+    const body = await res.text();
+    console.warn(`[lifi] Quote failed ${res.status}: ${body.slice(0, 200)}`);
+    return null;
