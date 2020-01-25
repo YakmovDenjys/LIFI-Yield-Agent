@@ -62,3 +62,10 @@ export async function getQuote(
 
 export async function getStatus(txHash: string, fromChainId: number, toChainId: number): Promise<any> {
   const url = new URL(`${CONFIG.LIFI_API}/status`);
+  url.searchParams.set("txHash", txHash);
+  url.searchParams.set("fromChain", String(fromChainId));
+  url.searchParams.set("toChain", String(toChainId));
+
+  const res = await fetch(url.toString());
+  if (!res.ok) return null;
+  return res.json();
