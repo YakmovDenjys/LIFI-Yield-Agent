@@ -12,3 +12,10 @@ function rayToApy(liquidityRate: bigint): number {
   // APY = (1 + liquidityRate/RAY / secondsPerYear)^secondsPerYear - 1
   // Simplified: APY ≈ liquidityRate / RAY (close enough for comparison)
   return Number(liquidityRate * 10000n / RAY) / 100;
+}
+
+export interface YieldInfo {
+  chainId: number;
+  chainName: string;
+  token: string;
+  supplyApyPct: number;
