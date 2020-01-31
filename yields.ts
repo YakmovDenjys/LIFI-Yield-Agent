@@ -19,3 +19,9 @@ export interface YieldInfo {
   chainName: string;
   token: string;
   supplyApyPct: number;
+  balanceRaw: bigint;
+  balanceUsd: number;
+}
+
+export async function getAaveUSDCYield(chainId: number): Promise<number> {
+  const providerAddr = CONFIG.AAVE_DATA_PROVIDER[chainId as keyof typeof CONFIG.AAVE_DATA_PROVIDER];
