@@ -6,3 +6,9 @@ import { CONFIG, AAVE_DATA_PROVIDER_ABI, ERC20_ABI } from "./config";
 import { getProvider } from "./wallet";
 
 const RAY = BigInt("1000000000000000000000000000"); // 1e27
+const SECONDS_PER_YEAR = 31_536_000n;
+
+function rayToApy(liquidityRate: bigint): number {
+  // APY = (1 + liquidityRate/RAY / secondsPerYear)^secondsPerYear - 1
+  // Simplified: APY ≈ liquidityRate / RAY (close enough for comparison)
+  return Number(liquidityRate * 10000n / RAY) / 100;
