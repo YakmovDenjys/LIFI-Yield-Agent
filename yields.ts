@@ -25,3 +25,9 @@ export interface YieldInfo {
 
 export async function getAaveUSDCYield(chainId: number): Promise<number> {
   const providerAddr = CONFIG.AAVE_DATA_PROVIDER[chainId as keyof typeof CONFIG.AAVE_DATA_PROVIDER];
+  const usdcAddr = CONFIG.USDC[chainId as keyof typeof CONFIG.USDC];
+  if (!providerAddr || !usdcAddr) throw new Error(`Chain ${chainId} not configured`);
+
+  const provider = getProvider(chainId);
+  const dataProvider = new ethers.Contract(providerAddr, AAVE_DATA_PROVIDER_ABI, provider);
+
