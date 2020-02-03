@@ -31,3 +31,10 @@ export async function getAaveUSDCYield(chainId: number): Promise<number> {
   const provider = getProvider(chainId);
   const dataProvider = new ethers.Contract(providerAddr, AAVE_DATA_PROVIDER_ABI, provider);
 
+  const data = await dataProvider.getReserveData(usdcAddr);
+  const liquidityRate: bigint = data[5]; // index 5 = liquidityRate
+  return rayToApy(liquidityRate);
+}
+
+export async function getUSDCBalance(chainId: number, address: string): Promise<bigint> {
+  const usdcAddr = CONFIG.USDC[chainId as keyof typeof CONFIG.USDC];
