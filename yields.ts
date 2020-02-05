@@ -38,3 +38,9 @@ export async function getAaveUSDCYield(chainId: number): Promise<number> {
 
 export async function getUSDCBalance(chainId: number, address: string): Promise<bigint> {
   const usdcAddr = CONFIG.USDC[chainId as keyof typeof CONFIG.USDC];
+  if (!usdcAddr) return 0n;
+  const provider = getProvider(chainId);
+  const usdc = new ethers.Contract(usdcAddr, ERC20_ABI, provider);
+  return await usdc.balanceOf(address);
+}
+
