@@ -44,3 +44,9 @@ export async function getUSDCBalance(chainId: number, address: string): Promise<
   return await usdc.balanceOf(address);
 }
 
+export async function getNativeBalance(chainId: number, address: string): Promise<bigint> {
+  const provider = getProvider(chainId);
+  return await provider.getBalance(address);
+}
+
+export async function getAllYields(address: string): Promise<YieldInfo[]> {
