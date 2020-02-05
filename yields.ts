@@ -50,3 +50,10 @@ export async function getNativeBalance(chainId: number, address: string): Promis
 }
 
 export async function getAllYields(address: string): Promise<YieldInfo[]> {
+  const targets = [
+    { chainId: 8453, chainName: "Base", token: "USDC" },
+    { chainId: 42161, chainName: "Arbitrum", token: "USDC" },
+    { chainId: 10, chainName: "Optimism", token: "USDC" },
+  ];
+
+  const results: YieldInfo[] = [];
