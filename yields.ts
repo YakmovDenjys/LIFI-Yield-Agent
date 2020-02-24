@@ -57,3 +57,9 @@ export async function getAllYields(address: string): Promise<YieldInfo[]> {
   ];
 
   const results: YieldInfo[] = [];
+
+  for (const t of targets) {
+    try {
+      const [apy, balanceRaw] = await Promise.all([
+        getAaveUSDCYield(t.chainId),
+        getUSDCBalance(t.chainId, address),
