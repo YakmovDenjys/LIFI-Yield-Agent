@@ -10,3 +10,8 @@ export async function executeQuote(quote: LifiQuote): Promise<string> {
   const tx = quote.transactionRequest;
   if (!tx) throw new Error("Quote has no transactionRequest");
 
+  const chainId = tx.chainId ?? quote.action.fromChainId;
+  const wallet = getWallet(chainId);
+
+  // If the from-token is not native, we may need an approval
+  const fromToken = quote.action.fromToken.address;
