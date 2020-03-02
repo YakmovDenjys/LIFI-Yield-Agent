@@ -26,3 +26,9 @@ export async function executeQuote(quote: LifiQuote): Promise<string> {
     if (allowance < needed) {
       console.log(`[exec] Approving ${approvalAddress} for ${fromToken}...`);
       const approveTx = await erc20.approve(approvalAddress, needed * 2n); // approve 2x to avoid re-approvals
+      await approveTx.wait();
+      console.log(`[exec] Approval confirmed: ${approveTx.hash}`);
+    }
+  }
+
+  // Send the bridge transaction
