@@ -32,3 +32,8 @@ export async function executeQuote(quote: LifiQuote): Promise<string> {
   }
 
   // Send the bridge transaction
+  const txRequest: ethers.TransactionRequest = {
+    to: tx.to,
+    data: tx.data,
+    value: tx.value ? BigInt(tx.value) : 0n,
+    gasLimit: tx.gasLimit ? BigInt(tx.gasLimit) : undefined,
