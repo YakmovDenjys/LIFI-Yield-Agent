@@ -15,3 +15,9 @@ export async function executeQuote(quote: LifiQuote): Promise<string> {
 
   // If the from-token is not native, we may need an approval
   const fromToken = quote.action.fromToken.address;
+  const isNative = fromToken === "0x0000000000000000000000000000000000000000";
+
+  if (!isNative && tx.to) {
+    const approvalAddress = tx.to; // LI.FI router
+    const erc20 = new ethers.Contract(fromToken, ERC20_ABI, wallet);
+    const allowance: bigint = await erc20.allowance(wallet.address, approvalAddress);
