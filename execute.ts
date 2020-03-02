@@ -21,3 +21,8 @@ export async function executeQuote(quote: LifiQuote): Promise<string> {
     const approvalAddress = tx.to; // LI.FI router
     const erc20 = new ethers.Contract(fromToken, ERC20_ABI, wallet);
     const allowance: bigint = await erc20.allowance(wallet.address, approvalAddress);
+    const needed = BigInt(quote.action.fromAmount);
+
+    if (allowance < needed) {
+      console.log(`[exec] Approving ${approvalAddress} for ${fromToken}...`);
+      const approveTx = await erc20.approve(approvalAddress, needed * 2n); // approve 2x to avoid re-approvals
