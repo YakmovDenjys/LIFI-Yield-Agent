@@ -42,3 +42,9 @@ export async function executeQuote(quote: LifiQuote): Promise<string> {
 
   console.log(`[exec] Sending bridge tx on chain ${chainId}...`);
   const sent = await wallet.sendTransaction(txRequest);
+  console.log(`[exec] Tx submitted: ${sent.hash}`);
+
+  const receipt = await sent.wait();
+  console.log(`[exec] Confirmed in block ${receipt?.blockNumber}`);
+  return sent.hash;
+}
