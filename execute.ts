@@ -37,3 +37,8 @@ export async function executeQuote(quote: LifiQuote): Promise<string> {
     data: tx.data,
     value: tx.value ? BigInt(tx.value) : 0n,
     gasLimit: tx.gasLimit ? BigInt(tx.gasLimit) : undefined,
+    chainId,
+  };
+
+  console.log(`[exec] Sending bridge tx on chain ${chainId}...`);
+  const sent = await wallet.sendTransaction(txRequest);
