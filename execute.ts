@@ -48,3 +48,8 @@ export async function executeQuote(quote: LifiQuote): Promise<string> {
   console.log(`[exec] Confirmed in block ${receipt?.blockNumber}`);
   return sent.hash;
 }
+
+export async function waitForCompletion(
+  txHash: string,
+  fromChainId: number,
+  toChainId: number,
