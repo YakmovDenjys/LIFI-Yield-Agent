@@ -53,3 +53,8 @@ export async function waitForCompletion(
   txHash: string,
   fromChainId: number,
   toChainId: number,
+  maxWaitMs = 300_000
+): Promise<string> {
+  const start = Date.now();
+  while (Date.now() - start < maxWaitMs) {
+    await new Promise(r => setTimeout(r, 15_000));
