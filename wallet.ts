@@ -4,3 +4,6 @@ import { CONFIG } from "./config";
 
 export interface KeyData {
   address: string;
+  mnemonic?: string;
+  privateKey?: string;
+}
