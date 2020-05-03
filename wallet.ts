@@ -13,3 +13,6 @@ function loadKey(): KeyData {
 }
 
 export function getAddress(): string {
+  return loadKey().address;
+}
+
