@@ -16,3 +16,6 @@ export function getAddress(): string {
   return loadKey().address;
 }
 
+export function getWallet(chainId: number): ethers.Wallet | ethers.HDNodeWallet {
+  const keyData = loadKey();
+  const chainConfig = Object.values(CONFIG.CHAINS).find(c => c.id === chainId);
