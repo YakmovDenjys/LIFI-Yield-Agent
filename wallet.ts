@@ -19,3 +19,6 @@ export function getAddress(): string {
 export function getWallet(chainId: number): ethers.Wallet | ethers.HDNodeWallet {
   const keyData = loadKey();
   const chainConfig = Object.values(CONFIG.CHAINS).find(c => c.id === chainId);
+  if (!chainConfig) throw new Error(`Unknown chain ${chainId}`);
+  const provider = new ethers.JsonRpcProvider(chainConfig.rpc);
+
