@@ -22,3 +22,6 @@ export function getWallet(chainId: number): ethers.Wallet | ethers.HDNodeWallet 
   if (!chainConfig) throw new Error(`Unknown chain ${chainId}`);
   const provider = new ethers.JsonRpcProvider(chainConfig.rpc);
 
+  if (keyData.privateKey) {
+    return new ethers.Wallet(keyData.privateKey, provider);
+  } else if (keyData.mnemonic) {
