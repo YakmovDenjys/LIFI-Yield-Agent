@@ -25,3 +25,7 @@ export function getWallet(chainId: number): ethers.Wallet | ethers.HDNodeWallet 
   if (keyData.privateKey) {
     return new ethers.Wallet(keyData.privateKey, provider);
   } else if (keyData.mnemonic) {
+    return ethers.Wallet.fromPhrase(keyData.mnemonic).connect(provider);
+  }
+  throw new Error("No private key or mnemonic in wallet file");
+}
