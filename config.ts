@@ -29,3 +29,9 @@ export const CONFIG = {
 
   // LI.FI
   LIFI_API: "https://li.quest/v1",
+
+  // Agent parameters
+  MIN_BRIDGE_AMOUNT_USD: 3,       // Minimum $3 worth to bridge (covers fees)
+  MIN_APY_DIFF_PCT: 0.5,          // Only bridge if APY diff > 0.5%
+  LOOP_INTERVAL_MS: 60_000,       // Check every 60s
+  MAX_SLIPPAGE: 0.005,            // 0.5% max slippage
