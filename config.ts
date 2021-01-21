@@ -22,3 +22,10 @@ export const CONFIG = {
 
   // Aave v3 Pool Data Provider addresses
   AAVE_DATA_PROVIDER: {
+    8453:  "0x0F43731EB8d45A581f4a36DD74F5f358bc90C73A", // Base
+    42161: "0x6b4E260b765B3cA1514e618C0215A6B7839fF93e", // Arbitrum
+    10:    "0x7F23D86Ee20D869112572136221e173428DD740B", // Optimism
+  },
+
+  // LI.FI
+  LIFI_API: "https://li.quest/v1",
