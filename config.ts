@@ -35,3 +35,10 @@ export const CONFIG = {
   MIN_APY_DIFF_PCT: 0.5,          // Only bridge if APY diff > 0.5%
   LOOP_INTERVAL_MS: 60_000,       // Check every 60s
   MAX_SLIPPAGE: 0.005,            // 0.5% max slippage
+
+  // Safety: never move more than this USDC per operation
+  MAX_MOVE_USDC: 20_000_000,      // 20 USDC (6 decimals)
+
+  // Log file
+  LOG_FILE: "/workspace/projects/lifi-agent/agent.log",
+};
