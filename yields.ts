@@ -69,3 +69,16 @@ export async function getAllYields(address: string): Promise<YieldInfo[]> {
         supplyApyPct: apy,
         balanceRaw,
         balanceUsd: Number(balanceRaw) / 1e6,
+      });
+    } catch (e: any) {
+      console.warn(`[yields] Failed for chain ${t.chainName}: ${e.message}`);
+      results.push({
+        ...t,
+        supplyApyPct: 0,
+        balanceRaw: 0n,
+        balanceUsd: 0,
+      });
+    }
+  }
+
+  return results;
