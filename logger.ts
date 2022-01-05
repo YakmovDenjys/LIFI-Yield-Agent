@@ -7,3 +7,8 @@ export interface AgentEvent {
   type: "scan" | "decision" | "bridge" | "complete" | "error" | "info";
   message: string;
   data?: Record<string, any>;
+}
+
+const events: AgentEvent[] = [];
+const MAX_EVENTS = 500;
+
