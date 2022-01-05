@@ -12,3 +12,9 @@ export interface AgentEvent {
 const events: AgentEvent[] = [];
 const MAX_EVENTS = 500;
 
+function ensureDir(file: string) {
+  const dir = dirname(file);
+  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+}
+
+export function log(type: AgentEvent["type"], message: string, data?: Record<string, any>) {
