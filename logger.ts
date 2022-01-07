@@ -23,3 +23,9 @@ export function log(type: AgentEvent["type"], message: string, data?: Record<str
   if (events.length > MAX_EVENTS) events.shift(); // keep last MAX_EVENTS
 
   const line = `[${event.ts}] [${type.toUpperCase()}] ${message}${data ? " " + JSON.stringify(data) : ""}\n`;
+  process.stdout.write(line);
+
+  try {
+    ensureDir(CONFIG.LOG_FILE);
+    appendFileSync(CONFIG.LOG_FILE, line);
+  } catch {}
