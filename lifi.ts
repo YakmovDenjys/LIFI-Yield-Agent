@@ -69,3 +69,15 @@ export async function getStatus(txHash: string, fromChainId: number, toChainId: 
   const res = await fetch(url.toString());
   if (!res.ok) return null;
   return res.json();
+}
+
+export function quoteSummary(q: LifiQuote): string {
+  const fromAmt = Number(q.action.fromAmount) / 10 ** q.action.fromToken.decimals;
+  const toAmt = Number(q.estimate.toAmount) / 10 ** q.action.toToken.decimals;
+  const fromUsd = fromAmt * parseFloat(q.action.fromToken.priceUSD);
+  const toUsd = toAmt * parseFloat(q.action.toToken.priceUSD);
+  const fees = q.estimate.feeCosts.map(f =>
+    `${Number(f.amount) / 10 ** f.token.decimals} ${f.token.symbol}`
+  ).join(", ");
+  const duration = q.estimate.executionDuration;
+  return `${fromAmt.toFixed(4)} ${q.action.fromToken.symbol} ($${fromUsd.toFixed(2)}) → ${toAmt.toFixed(4)} ${q.action.toToken.symbol} ($${toUsd.toFixed(2)}) via ${q.toolDetails.name} | fees: ${fees || "none"} | ~${duration}s`;
