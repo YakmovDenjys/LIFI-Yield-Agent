@@ -6,3 +6,6 @@ on:
   pull_request:
 
 jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    strategy:
