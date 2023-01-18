@@ -9,3 +9,6 @@ jobs:
   typecheck:
     runs-on: ubuntu-latest
     strategy:
+      matrix:
+        node-version: [20, 22]
+      fail-fast: false
