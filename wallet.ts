@@ -29,3 +29,8 @@ export function getWallet(chainId: number): ethers.Wallet | ethers.HDNodeWallet 
   }
   throw new Error("No private key or mnemonic in wallet file");
 }
+
+export function getProvider(chainId: number): ethers.JsonRpcProvider {
+  const chainConfig = Object.values(CONFIG.CHAINS).find(c => c.id === chainId);
+  if (!chainConfig) throw new Error(`Unknown chain ${chainId}`);
+  return new ethers.JsonRpcProvider(chainConfig.rpc);
