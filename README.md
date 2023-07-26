@@ -113,4 +113,4 @@ Built with ❤️ using [LI.FI API](https://docs.li.fi), [ethers.js](https://eth
 
 Use `bun run once` for a single sweep; the default run loops on its own schedule.
 
-<!-- draft note 546 -->
+<!-- draft note 547 -->
