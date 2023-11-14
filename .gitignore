@@ -1,0 +1,7 @@
+node_modules/
+bun.lock
+*.log
+.env
+
+# never commit private wallet keys
+*.wallet-key.json
