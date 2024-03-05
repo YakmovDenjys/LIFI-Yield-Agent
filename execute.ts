@@ -58,3 +58,14 @@ export async function waitForCompletion(
   const start = Date.now();
   while (Date.now() - start < maxWaitMs) {
     await new Promise(r => setTimeout(r, 15_000));
+    const status = await getStatus(txHash, fromChainId, toChainId);
+    if (!status) continue;
+    console.log(`[exec] Bridge status: ${status.status} / ${status.substatus || ""}`);
+    if (status.status === "DONE") {
+      return status.receiving?.txHash || txHash;
+    }
+    if (status.status === "FAILED") {
+      throw new Error(`Bridge failed: ${JSON.stringify(status)}`);
+    }
+  }
+  throw new Error("Bridge timed out after 5 minutes");
