@@ -29,3 +29,12 @@ export function log(type: AgentEvent["type"], message: string, data?: Record<str
     ensureDir(CONFIG.LOG_FILE);
     appendFileSync(CONFIG.LOG_FILE, line);
   } catch {}
+}
+
+export function getRecentEvents(n = 50): AgentEvent[] {
+  return events.slice(-n);
+}
+
+export function getEvents(): AgentEvent[] {
+  return [...events];
+}
