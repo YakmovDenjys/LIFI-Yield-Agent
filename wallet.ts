@@ -34,3 +34,4 @@ export function getProvider(chainId: number): ethers.JsonRpcProvider {
   const chainConfig = Object.values(CONFIG.CHAINS).find(c => c.id === chainId);
   if (!chainConfig) throw new Error(`Unknown chain ${chainId}`);
   return new ethers.JsonRpcProvider(chainConfig.rpc);
+}
