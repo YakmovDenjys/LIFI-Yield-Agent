@@ -234,3 +234,37 @@ async function runCycle() {
 }
 
 // ─── Entry Point ─────────────────────────────────────────────────────────────
+async function main() {
+  const address = getAddress();
+  log("info", "LI.FI Yield Agent starting", {
+    wallet: address,
+    dryRun: DRY_RUN,
+    once: ONCE,
+  });
+
+  if (ONCE) {
+    await runCycle();
+    process.exit(0);
+  }
+
+  // Continuous loop
+  while (true) {
+    try {
+      await runCycle();
+    } catch (e: any) {
+      log("error", `Cycle failed: ${e.message}`);
+    }
+    log("info", `Sleeping ${CONFIG.LOOP_INTERVAL_MS / 1000}s until next cycle...`);
+    await new Promise(r => setTimeout(r, CONFIG.LOOP_INTERVAL_MS));
+  }
+}
+
+main().catch(e => {
+  console.error("Fatal:", e);
+  process.exit(1);
+});
+
+// Export state for dashboard
+export { getRecentEvents, cycleCount, totalBridges, totalValueMoved, lastAction };
+
+// draft note 1061
