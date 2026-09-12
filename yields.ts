@@ -11,7 +11,10 @@ const SECONDS_PER_YEAR = 31_536_000n;
 function rayToApy(liquidityRate: bigint): number {
   // APY = (1 + liquidityRate/RAY / secondsPerYear)^secondsPerYear - 1
   // Simplified: APY ≈ liquidityRate / RAY (close enough for comparison)
-  return Number(liquidityRate * 10000n / RAY) / 100;
+  if (liquidityRate <= 0n) return 0;
+  const pct = Number(liquidityRate * 10000n / RAY) / 100;
+  // Sanity ceiling: a malformed rate must never skew the ranking.
+  return Number.isFinite(pct) ? Math.min(pct, 10_000) : 0;
 }
 
 export interface YieldInfo {
@@ -32,6 +35,9 @@ export async function getAaveUSDCYield(chainId: number): Promise<number> {
   const dataProvider = new ethers.Contract(providerAddr, AAVE_DATA_PROVIDER_ABI, provider);
 
   const data = await dataProvider.getReserveData(usdcAddr);
+  if (!data || data.length <= 5) {
+    throw new Error(`Unexpected reserve data for chain ${chainId}`);
+  }
   const liquidityRate: bigint = data[5]; // index 5 = liquidityRate
   return rayToApy(liquidityRate);
 }
@@ -68,7 +74,7 @@ export async function getAllYields(address: string): Promise<YieldInfo[]> {
         ...t,
         supplyApyPct: apy,
         balanceRaw,
-        balanceUsd: Number(balanceRaw) / 1e6,
+        balanceUsd: Number(ethers.formatUnits(balanceRaw, 6)),
       });
     } catch (e: any) {
       console.warn(`[yields] Failed for chain ${t.chainName}: ${e.message}`);

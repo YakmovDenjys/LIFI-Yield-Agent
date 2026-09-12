@@ -71,13 +71,22 @@ export async function getStatus(txHash: string, fromChainId: number, toChainId: 
   return res.json();
 }
 
+function toNum(value: string | undefined, fallback = 0): number {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : fallback;
+}
+
+function clampDecimals(d: number): number {
+  return Number.isInteger(d) && d >= 0 && d <= 36 ? d : 0;
+}
+
 export function quoteSummary(q: LifiQuote): string {
-  const fromAmt = Number(q.action.fromAmount) / 10 ** q.action.fromToken.decimals;
-  const toAmt = Number(q.estimate.toAmount) / 10 ** q.action.toToken.decimals;
-  const fromUsd = fromAmt * parseFloat(q.action.fromToken.priceUSD);
-  const toUsd = toAmt * parseFloat(q.action.toToken.priceUSD);
+  const fromAmt = toNum(q.action.fromAmount) / 10 ** clampDecimals(q.action.fromToken.decimals);
+  const toAmt = toNum(q.estimate.toAmount) / 10 ** clampDecimals(q.action.toToken.decimals);
+  const fromUsd = fromAmt * toNum(q.action.fromToken.priceUSD);
+  const toUsd = toAmt * toNum(q.action.toToken.priceUSD);
   const fees = q.estimate.feeCosts.map(f =>
-    `${Number(f.amount) / 10 ** f.token.decimals} ${f.token.symbol}`
+    `${toNum(f.amount) / 10 ** clampDecimals(f.token.decimals)} ${f.token.symbol}`
   ).join(", ");
   const duration = q.estimate.executionDuration;
   return `${fromAmt.toFixed(4)} ${q.action.fromToken.symbol} ($${fromUsd.toFixed(2)}) → ${toAmt.toFixed(4)} ${q.action.toToken.symbol} ($${toUsd.toFixed(2)}) via ${q.toolDetails.name} | fees: ${fees || "none"} | ~${duration}s`;

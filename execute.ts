@@ -4,7 +4,16 @@
 import { ethers } from "ethers";
 import { getWallet } from "./wallet";
 import { LifiQuote, getStatus } from "./lifi";
-import { ERC20_ABI } from "./config";
+import { CONFIG, ERC20_ABI } from "./config";
+
+function safeBigInt(value: string | undefined, label: string): bigint {
+  if (!value) return 0n;
+  try {
+    return BigInt(value);
+  } catch {
+    throw new Error(`Malformed ${label}: ${value}`);
+  }
+}
 
 export async function executeQuote(quote: LifiQuote): Promise<string> {
   const tx = quote.transactionRequest;
@@ -12,6 +21,13 @@ export async function executeQuote(quote: LifiQuote): Promise<string> {
 
   const chainId = tx.chainId ?? quote.action.fromChainId;
   const wallet = getWallet(chainId);
+
+  // Safety: never move more than the configured cap per operation.
+  const needed = safeBigInt(quote.action.fromAmount, "fromAmount");
+  const cap = BigInt(CONFIG.MAX_MOVE_USDC);
+  if (needed <= 0n || needed > cap) {
+    throw new Error(`fromAmount ${needed} outside allowed range (1..${cap})`);
+  }
 
   // If the from-token is not native, we may need an approval
   const fromToken = quote.action.fromToken.address;
@@ -21,7 +37,6 @@ export async function executeQuote(quote: LifiQuote): Promise<string> {
     const approvalAddress = tx.to; // LI.FI router
     const erc20 = new ethers.Contract(fromToken, ERC20_ABI, wallet);
     const allowance: bigint = await erc20.allowance(wallet.address, approvalAddress);
-    const needed = BigInt(quote.action.fromAmount);
 
     if (allowance < needed) {
       console.log(`[exec] Approving ${approvalAddress} for ${fromToken}...`);
@@ -35,8 +50,8 @@ export async function executeQuote(quote: LifiQuote): Promise<string> {
   const txRequest: ethers.TransactionRequest = {
     to: tx.to,
     data: tx.data,
-    value: tx.value ? BigInt(tx.value) : 0n,
-    gasLimit: tx.gasLimit ? BigInt(tx.gasLimit) : undefined,
+    value: safeBigInt(tx.value, "transaction value"),
+    gasLimit: tx.gasLimit ? safeBigInt(tx.gasLimit, "gasLimit") : undefined,
     chainId,
   };
 
